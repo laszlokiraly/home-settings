@@ -55,8 +55,8 @@ HIST_STAMPS="mm/dd/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# colorize common-aliases emoji-clock gitignore
-plugins=(git git-flow git-flow-completion nmap battery history last-working-dir emoji)
+# colorize common-aliases emoji-clock gitignore last-working-dir
+plugins=(git git-flow git-flow-completion nmap battery history emoji)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -89,7 +89,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias dir=ls -la
+alias dir='ls -la'
+
+# editor
+export EDITOR='vim'
 
 # less
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
@@ -116,6 +119,14 @@ precmd () {
     fi
     unset LAST_CMD
     unset START
+}
+
+# added by Anaconda2 4.2.0 installer
+export PATH="/Users/laszlo/anaconda2/bin:$PATH"
+
+# open url with chrome
+chrome () {
+  open -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome $1
 }
 
 # reason
