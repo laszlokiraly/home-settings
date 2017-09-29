@@ -56,7 +56,7 @@ HIST_STAMPS="mm/dd/yyyy"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # colorize common-aliases emoji-clock gitignore last-working-dir
-plugins=(git git-flow git-flow-completion nmap battery history emoji)
+plugins=(git git-flow git-flow-completion nmap battery history per-directory-history emoji)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -91,6 +91,10 @@ source $ZSH/oh-my-zsh.sh
 
 alias dir='ls -la'
 
+# cuda
+export PATH=/Developer/NVIDIA/CUDA-8.0/bin${PATH:+:${PATH}}
+export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-8.0/lib\
+                         ${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
 # editor
 export EDITOR='vim'
 
@@ -100,22 +104,25 @@ export LESS=" -R "
 alias less='less -m -N -g -i -J --underline-special --SILENT'
 alias more='less'
 
+# aws
+source ~/.aws-env.sh
+
 # syntax highlighting commands
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # color and timestamp pre and post commands
 preexec () {
-    START="$(python -c 'import time; print time.time()')"
-    LAST_CMD=$1
+    START="$(python -c 'import __future__; import time; print (time.time())')"
+    LAST_CMD=$2
     current_time=`date "+%H:%M:%S"`
-    echo -n "\e[1m$fg[yellow]\`$LAST_CMD\`\e[0m\e[3m$fg[yellow] started at $current_time\e[0m\n"
+    echo -n "\e[1m$fg[yellow]$ $LAST_CMD\e[0m\e[3m$fg[yellow] started at $current_time\e[0m\n"
 }
 precmd () {
     if [ -z ${START} ];
     then
     else
-        echo -n "\e[1m$fg[yellow]\`$LAST_CMD\`\e[0m\e[3m$fg[yellow] finished in "
-        python -c "import time; print '%0.3fs' % (time.time() - $START)"
+        echo -n "\e[1m$fg[yellow]$ $LAST_CMD\e[0m\e[3m$fg[yellow] finished in "
+        python -c "import __future__; import time; print ('%0.3fs' % (time.time() - $START))"
     fi
     unset LAST_CMD
     unset START
@@ -129,5 +136,18 @@ chrome () {
   open -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome $1
 }
 
+# cuda for tensorflow
+#export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib:/usr/local/cuda/extras/CUPTI/lib"
+#export CUDA_HOME=/usr/local/cuda
+#export CUDA_VISIBLE_DEVICES=1
+
 # reason
 eval $(opam config env)
+
+echo tips of the day: ctrl+g to switch between global and directory history, ctrl+x and ctrl+e to edit active line in editor
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/laszlo/Libs/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/laszlo/Libs/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/laszlo/Libs/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/laszlo/Libs/google-cloud-sdk/completion.zsh.inc'; fi

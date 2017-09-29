@@ -16,7 +16,7 @@ module.exports = {
     foregroundColor: '#0FF',
 
     // terminal background color
-    backgroundColor: '#000',
+    backgroundColor: 'rgba(15,15,15,0.75)',
 
     // border color (window, tabs)
     borderColor: '#333',
@@ -76,10 +76,10 @@ module.exports = {
     env: {},
 
     // set to false for no bell
-    bell: 'SOUND',
+    bell: false,
 
     // if true, selected text will automatically be copied to the clipboard
-    copyOnSelect: false
+    copyOnSelect: true
 
     // if true, on right click selected text will be copied or pasted if no
     // selection is present (true by default on Windows)
@@ -97,7 +97,11 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: [],
+  plugins: [
+    'hypercwd',
+    'hyperterm-alternatescroll',
+    'hyperterm-dibdabs'
+  ],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
