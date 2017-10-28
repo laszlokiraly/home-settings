@@ -1,5 +1,7 @@
 #!/bin/bash
-open -a Safari http://link1 https://link2
+/bin/zsh -i -c 'chrome documenation_link'
+# open -a Safari documenation_link
+npm test & npm start
 atom .
-npm start
-
+/bin/zsh -i -c 'chrome dev_server_link'
+# kill $(pgrep dev_server)
